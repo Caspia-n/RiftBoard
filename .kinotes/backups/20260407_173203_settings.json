@@ -28,7 +28,7 @@
   "bg_color": "Ivory Paper",
   "dark_bg_color": "Charcoal",
   "dark_text_color": "Pure White",
-  "dark_mode": false,
+  "dark_mode": true,
   "use_visual_editor": true,
   "ui_scale_factor": 1.25,
   "crossprobe_enabled": true,
@@ -55,5 +55,7 @@
   "timer_interval_ms": 5000,
   "enable_time_tracking": true,
   "time_format_24h": true,
-  "show_work_diary": true
+  "show_work_diary": true,
+  "panel_width": 1000,
+  "panel_height": 800
 }
