@@ -1,9 +1,9 @@
-<h1>My Project<h1/>
+<h1>My Project</h1>
 RiftBoard is a comprehensive devboard built around the RP2040 chipset, it features a very fancy (and time consuming) ground fill, some 3v3 and some VBUS, also lots of GND. I built it mainly for testing and using sensors and actuators, either on their own or working together.
 <h1>Why?</h1>
 I started this project because I wanted to get into hardware design and embedded electronics. But also because I love HackClub and what they do and really wanted to be a part of this, I thank you so much for the opportunities, and I also really want a hot plate for future projects :).
 
-<h1>Pics<h1/>
+<h1>Pics</h1>
 <img width="589" height="403" alt="image" src="https://github.com/user-attachments/assets/69c692a6-f992-43b9-9327-5bf30410a61b" />
 <img width="133" height="312" alt="image" src="https://github.com/user-attachments/assets/f4f183dc-f220-4d35-b5ad-534a5e3fd66f" />
 <img width="1722" height="977" alt="RiftBoard" src="https://github.com/user-attachments/assets/8b257af1-c0a9-45e9-a17f-89f33f6e4f6c" />
