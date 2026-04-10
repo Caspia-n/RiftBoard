@@ -1,6 +1,6 @@
 # **RiftBoard - Design Notes**
 
-## ********************************PCB layout time [2026-04-07 9:40]********************************
+## ********************************************PCB layout time [2026-04-07 9:40]********************************************
 I made a Differential pair for usb data routing [2026-04-07 9:45] 
 Added Decoupling caps for step-down and power lines [2026-04-07 10:00] 
 Logoff [2026-04-07 10:19] 
@@ -16,7 +16,7 @@ Started tracing with the reassigned GPIOs, the first part that had to go around 
 Finished routing, left all the GND pins, and connected all 3v3's together and vbus pins together too. [2026-04-08 10:48] 
 
 
-I unrounded all the tracks, as I noticed it actually made the differential pair wrong, and I was unable to fix it, so I unrounded everything and retuned the traces. I also discovered that I forgot to comine D- + D- and D+ + D+.[2026-04-08 10:57] 
+I unrounded all the tracks, as I noticed it actually made the differential pair wrong, and I was unable to fix it, so I unrounded everything and retuned the traces. I also discovered that I forgot to combine D- + D- and D+ + D+.[2026-04-08 10:57] 
 
 Logoff [2026-04-08 10:58] 
 Logon [2026-04-08 12:07] 
@@ -27,8 +27,12 @@ Connected and reinforced most ground fill parts [2026-04-08 13:00]
 DRC is as clean as it will get, I am happy, now time for the art and stuff [2026-04-08 13:03] 
 Logoff[2026-04-08 13:38] 
 Logon[2026-04-08 14:52] 
-I 
-Logoff [2026-04-08 15:] 
-
+I spent quite some time getting a nice design, now I got it and will
+Logoff [2026-04-08 15:18] 
+Fishing up design placement and little ornaments [2026-04-10 08:50] 
+I am happy with the design and how the baord looks, I will now get the fabrication outputs done using a plugin that automatically makes it JLCPCB compatible. [2026-04-10 09:01] 
+I had to replace the 14pin connector, because it wasnt availible on JLC, No I have to slightly change some routing. [2026-04-10 09:25] 
+I did some digging and found out that the crystal oscilator's orientation does not matter as long as the ground pads are on ground, so pin 1 and 3 are interchangeable, I will not do PCBA, because when I looked it was 80AUD because of the parts from extended library. [2026-04-10 10:13] 
+Logoff [2026-04-10 10:15] 
 
 
