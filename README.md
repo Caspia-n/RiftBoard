@@ -1,82 +1,392 @@
-**Schematic design**  
-I started designing the schematic in KiCad, and following the tutorial i started with the capacitors on the power line  
-<img width="522" height="129" alt="Screenshot 2026-03-16 143728" src="https://github.com/user-attachments/assets/57855e55-be47-4f7c-9d69-6d0033eba444" />
+<h1>My Project<h1/>
+RiftBoard is a comprehensive devboard built around the RP2040 chipset, it features a very fancy (and time consuming) ground fill, some 3v3 and some VBUS, also lots of GND. I built it mainly for testing and using sensors and actuators, either on their own or working together.
+<h1>Why?</h1>
+I started this project because I wanted to get into hardware design and embedded electronics. But also because I love HackClub and what they do and really wanted to be a part of this, I thank you so much for the opportunities, and I also really want a hot plate for future projects :).
 
-I actually copied the 3v3 capacitor line for 5v too, but then later in the tutorial found out that it was not necessary. I added the usb interface and flash memory, and did some more research to understand the use cases of SPI.  
-<img width="233" height="300" alt="Screenshot 2026-03-16 143758" src="https://github.com/user-attachments/assets/ef876516-1c8b-4c8a-ae0d-acde7add0eb8" />
+<h1>Pics<h1/>
+<img width="589" height="403" alt="image" src="https://github.com/user-attachments/assets/69c692a6-f992-43b9-9327-5bf30410a61b" />
+<img width="133" height="312" alt="image" src="https://github.com/user-attachments/assets/f4f183dc-f220-4d35-b5ad-534a5e3fd66f" />
+<img width="1722" height="977" alt="RiftBoard" src="https://github.com/user-attachments/assets/8b257af1-c0a9-45e9-a17f-89f33f6e4f6c" />
+<img width="1722" height="977" alt="RiftBoardBack" src="https://github.com/user-attachments/assets/05101d70-67d9-4b88-8cf7-44c0ef374feb" />
 
-Then I did all the labels and actually removed three to be replaced by a red led(with 50ohm resistor), a blue led(10ohm) and a button connected to 3v3.  
-The headers will be shuffled a bit so the pins are all at my preffered optimal places.  
-<img width="173" height="147" alt="Screenshot 2026-03-16 143810" src="https://github.com/user-attachments/assets/9c3be6d6-1ee4-4fa5-b4cb-034e0c180082" />
-
-**Sketch Finished**  
-
-**Header Pins**  
-I first fixxed the I/O headers to fit what I wanted, I use a lot of servos normally, and when on low power, you can put them on the board, so I though 5v was important. I also made sure tha 3v3 and GND pins were abundant for possibly LEDS, or I2C interfaces.  
-<img width="379" height="367" alt="Screenshot 2026-03-24 123425" src="https://github.com/user-attachments/assets/e31810e3-aea9-4d8a-b7f2-d3b651736588" />
-
-**Button**  
-I also added a programmable button, because I thought it would be nice to have one:  
-<img width="127" height="73" alt="Screenshot 2026-03-24 123841" src="https://github.com/user-attachments/assets/6c1c747c-7563-416a-a3e0-d82c9bdb7d9f" />
-
-**Cleaning**  
-I then removed the caps i had on the 5V line, as I saw it wasn't needed. The crystal show 3 pins, but it is the right version, so I will find out if it works later, and added boxes and labels everywhere:  
-<img width="533" height="363" alt="Screenshot 2026-03-24 123923" src="https://github.com/user-attachments/assets/e4368306-a78a-4cbd-9770-b73320162847" />
-
-**ERC**  
-I ran the ERC to check my schematic, and it passed with just the power pin errors that should be igmored:  
-<img width="831" height="489" alt="Screenshot 2026-03-24 124952" src="https://github.com/user-attachments/assets/1da408bc-3289-462b-a38d-ddf74574a53d" />
-
-**Footprint assigments**  
-I copied most of the footprints from the turorial, only had to make some small adjustments  
-But the LED was a bit more difficult, so i was looking around on JLC but couldn't find what I was looking for exaclty, until I later discovered that the footprint was just the size specification.  
-<img width="461" height="435" alt="Screenshot 2026-03-30 100742" src="https://github.com/user-attachments/assets/26135fe2-bc5d-4dba-8bd2-f1d183405ab7" />
-
-**PCB design**  
-I started Designing the PCB and also changed some components around, I decided to follow the tutorial on the step-down converter, since I won't be using it for high current applications.  
-<img width="772" height="773" alt="Screenshot 2026-03-30 103404" src="https://github.com/user-attachments/assets/b52e2857-7423-4168-ad28-0a63d52becdf" />
-
-After that I started routing which was a pain, it doesn't feel the way it is supposed to so I will have to check out the KiCad settings. I did a few concept configs, I don't have screenshots of those, but here is the start of the routing:  
-<img width="1327" height="1137" alt="Screenshot 2026-03-30 111854" src="https://github.com/user-attachments/assets/a8187185-3785-4707-9ef2-efafe29aea59" />
-
-Next I will continue routing and probably do it over 5 times to make usre to not place vias on the pads, which I did on another design that I was about to order, so thanks for that tip hehe.  
-
-**PCB routing**  
-PS, this log looks different because I started using a kicad plugin to keep track of time and progress, and this is just copied over with small adjustments.  
-I made a Differential pair for usb data routing, at first the flash mem was too close, making the resistors misaligned and everything was screwed, so I redid that and then I did some of that tuning and the differential pair is now good. [2026-04-07 9:45] Added Decoupling caps for step-down and power lines [2026-04-07 10:00] Logoff [2026-04-07 10:19] Logon [2026-04-07 10:45] All components placed, wil commence routing algorithm to see how good it works, just for curiosity. [2026-04-07 11:09] Algorithm took too long, started manual routing [2026-04-07 11:30] Log off [2026-04-07 12:13] Log on [2026-04-07 17:15] Had problems with some of the GPIOs as the chip has them in top to bottom while the pin header has it the other way around, I am going to keep trying to make it work, if not then I will flip the row around. [2026-04-07 17:31]
-<img width="692" height="732" alt="image" src="https://github.com/user-attachments/assets/886e0c06-d0a7-4195-89b1-c9a4fcf7ae29" />
-
-I reassigned all the GPIOs, both the right header row and for the button and leds, this should make it easier to route. [2026-04-07 18:03]  
-<img width="501" height="624" alt="image" src="https://github.com/user-attachments/assets/cc4b3ed6-285d-4d0b-a5b4-78ca0d4daee6" />
-
-**PCB routing done**  
-Started tracing with the reassigned GPIOs, the first part that had to go around the decoupling caps was quite difficult. [2026-04-08 10:30] Finished routing, left all the GND pins, and connected all 3v3's together and vbus pins together too. [2026-04-08 10:48]  
-<img width="426" height="929" alt="image" src="https://github.com/user-attachments/assets/13120461-b2b0-42ee-8f18-514639901172" />
-
-I unrounded all the tracks, as I noticed it actually made the differential pair wrong, and I was unable to fix it, so I unrounded everything and retuned the traces. I also discovered that I forgot to combine D- + D- and D+ + D+.[2026-04-08 10:57]  
-<img width="468" height="1018" alt="image" src="https://github.com/user-attachments/assets/a3fc407a-70c4-4aa2-8d98-957f131cb78c" />
-
-Logoff [2026-04-08 10:58] Logon [2026-04-08 12:07] Ground fill done, it took a lot of rerouting and vias to connect everything, but it worked out in the end. There was a wierd misalignment between the MCU and the tracks, so I had to lower the spacing, and some plces now have a 0.192 or 0.194 mm spacing instead of 0.2mm, I assessed that this should work out fine as it will be the lower power gpio pins. [2026-04-08 12:28] Ran DRC and got quite the package, of course the minimum spcing that I just mentioned, and then isolated GND islands, but they weren't really isolated. Labled everything, so silkscreen shows every component ID [2026-04-08 12:43]  
-<img width="662" height="512" alt="image" src="https://github.com/user-attachments/assets/2daabfdf-7177-4236-a46e-673bb97229b4" />
-
-Connected and reinforced most ground fill parts [2026-04-08 13:00] DRC is as clean as it will get, I am happy, now time for the art and stuff [2026-04-08 13:03] Logoff[2026-04-08 13:38] Logon[2026-04-08 14:52] I spent quite some time getting a nice design, now I got it and will put it on the board, as well as getting BOM and everything next session.  
-<img width="662" height="512" alt="image" src="https://github.com/user-attachments/assets/5df2442a-f90f-426b-82d2-416f0eb3e00e" />
-
-**Order ready**  
-Fishing up design placement and little ornaments [2026-04-10 08:50]  
-I am happy with the design and how the baord looks, I will now get the fabrication outputs done using a plugin that automatically makes it JLCPCB compatible. [2026-04-10 09:01]  
-<img width="2560" height="1392" alt="image" src="https://github.com/user-attachments/assets/4fc4baf5-d6aa-4bef-8dd9-81b7a4085343" />
-
-I had to replace the 14pin connector, because it wasnt availible on JLC, Now I have to slightly change some routing. [2026-04-10 09:25] I did some digging and found out that the crystal oscilator's orientation does not matter as long as the ground pads are on ground, so pin 1 and 3 are interchangeable.  
-<img width="317" height="228" alt="image" src="https://github.com/user-attachments/assets/cab317bb-bcfe-4389-b7d4-34efe18922e2" />
-
-I will not do PCBA, because when I looked it was 80AUD because of the parts from extended library. [2026-04-10 10:13]  
-I want to get this board and my personal board that is not on hackclub together as it is cheaper to get both:  
-<img width="349" height="444" alt="image" src="https://github.com/user-attachments/assets/cee08fa0-c91f-4b89-bd13-09f15a46996d" />
-[Just RiftBoard x5]
-
-<img width="358" height="446" alt="image" src="https://github.com/user-attachments/assets/3d5fa777-1e80-4c93-a77b-4384527bddd9" />
-[With LilG(personal board) x10 added]
-
-So the total will look like this:
-<img width="1289" height="636" alt="image" src="https://github.com/user-attachments/assets/9a44b1a0-fa68-4be9-8826-b5d5c0870be8" />
+<h1>BOM</h1>
+<table>
+    <tr>
+        <td>Mrf#</td>
+        <td>Mfr.</td>
+        <td>Order Qty.</td>
+        <td>Unit Price(USD)</td>
+        <td>Ext.Price(USD)</td>
+        <td>LCSC#</td>
+        <td>Package</td>
+        <td>Min</td>
+        <td>Mult</td>
+        <td>SPQ</td>
+        <td>Availability</td>
+        <td>Stock Status</td>
+        <td>Customer Notes</td>
+        <td>Description</td>
+        <td>Purpose</td>
+        <td>Product Link</td>
+    </tr>
+    <tr>
+        <td>CC0402KRX7R7BB104</td>
+        <td>YAGEO</td>
+        <td>100</td>
+        <td>0.0010</td>
+        <td>0.10</td>
+        <td>C60474</td>
+        <td>0402</td>
+        <td>100</td>
+        <td>100</td>
+        <td>10000</td>
+        <td>11898300</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>100nF ±10% 16V Ceramic Capacitor X7R 0402</td>
+        <td>Capacitors for decoupling and stabilisation of powerlines</td>
+        <td>https://www.lcsc.com/product-detail/C60474.html</td>
+    </tr>
+    <tr>
+        <td>CL05A105KP5NNNC</td>
+        <td>Samsung Electro-Mechanics</td>
+        <td>100</td>
+        <td>0.0023</td>
+        <td>0.23</td>
+        <td>C14445</td>
+        <td>0402</td>
+        <td>100</td>
+        <td>100</td>
+        <td>10000</td>
+        <td>1500800</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>1uF ±10% 10V Ceramic Capacitor X5R 0402</td>
+        <td>One for each power line</td>
+        <td>https://www.lcsc.com/product-detail/C14445.html</td>
+    </tr>
+    <tr>
+        <td>CL10A106KP8NNNC</td>
+        <td>Samsung Electro-Mechanics</td>
+        <td>50</td>
+        <td>0.0080</td>
+        <td>0.40</td>
+        <td>C19702</td>
+        <td>0603</td>
+        <td>50</td>
+        <td>50</td>
+        <td>4000</td>
+        <td>3665250</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>10uF ±10% 10V Ceramic Capacitor X5R 0603</td>
+        <td>Caps for the stepdown converter</td>
+        <td>https://www.lcsc.com/product-detail/C19702.html</td>
+    </tr>
+    <tr>
+        <td>CL05C330JB5NNNC</td>
+        <td>Samsung Electro-Mechanics</td>
+        <td>100</td>
+        <td>0.0036</td>
+        <td>0.36</td>
+        <td>C70465</td>
+        <td>0402</td>
+        <td>100</td>
+        <td>100</td>
+        <td>10000</td>
+        <td>209500</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>33pF ±5% 50V Ceramic Capacitor C0G 0402</td>
+        <td>Caps for the crystal</td>
+        <td>https://www.lcsc.com/product-detail/C70465.html</td>
+    </tr>
+    <tr>
+        <td>YLED0603B</td>
+        <td>YONGYUTAI</td>
+        <td>100</td>
+        <td>0.0060</td>
+        <td>0.60</td>
+        <td>C19171394</td>
+        <td>0603</td>
+        <td>100</td>
+        <td>100</td>
+        <td>4000</td>
+        <td>55000</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>Blue LED Indication - Discrete 2.6V~3.2V 0603</td>
+        <td>Blue programmable LED</td>
+        <td>https://www.lcsc.com/product-detail/C19171394.html</td>
+    </tr>
+    <tr>
+        <td>YLED0603R</td>
+        <td>YONGYUTAI</td>
+        <td>100</td>
+        <td>0.0061</td>
+        <td>0.61</td>
+        <td>C19171390</td>
+        <td>0603</td>
+        <td>100</td>
+        <td>100</td>
+        <td>4000</td>
+        <td>267100</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>Red LED Indication - Discrete 1.8V~2.4V 0603</td>
+        <td>Red programmable LED</td>
+        <td>https://www.lcsc.com/product-detail/C19171390.html</td>
+    </tr>
+    <tr>
+        <td>HX TYPE-C 16PIN</td>
+        <td>hanxia</td>
+        <td>5</td>
+        <td>0.0704</td>
+        <td>0.35</td>
+        <td>C5178539</td>
+        <td>SMD</td>
+        <td>5</td>
+        <td>5</td>
+        <td>1000</td>
+        <td>34690</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>USB-C (USB TYPE-C) Receptacle Connector 16 Position Surface Mount, Right Angle</td>
+        <td>Usb interface</td>
+        <td>https://www.lcsc.com/product-detail/C5178539.html</td>
+    </tr>
+    <tr>
+        <td>PH2.54-1X20P-H25</td>
+        <td>JXTCONN</td>
+        <td>10</td>
+        <td>0.0920</td>
+        <td>0.92</td>
+        <td>C42431804</td>
+        <td>Through Hole,P=2.54mm</td>
+        <td>5</td>
+        <td>5</td>
+        <td>200</td>
+        <td>9870</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>Pin Header 20 Position 2.54mm Pitch Single Row Through Hole -40℃~+105℃</td>
+        <td>Main Pin headers</td>
+        <td>https://www.lcsc.com/product-detail/C42431804.html</td>
+    </tr>
+    <tr>
+        <td>HX PH254-01-03-Z-L11.5 pcb pin header</td>
+        <td>hanxia</td>
+        <td>20</td>
+        <td>0.0192</td>
+        <td>0.38</td>
+        <td>C52016391</td>
+        <td>Through Hole,P=2.54mm</td>
+        <td>20</td>
+        <td>20</td>
+        <td>2000</td>
+        <td>9760</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>Pin Header 1 2.5mm 6mm 3P -40℃~+105℃ 3mm 2.54mm 3A 1kV 1x3P Through Hole,P=2.54mm Headers, Male Pins RoHS</td>
+        <td>3pin-connector</td>
+        <td>https://www.lcsc.com/product-detail/C52016391.html</td>
+    </tr>
+    <tr>
+        <td>RC0402FR-075K1L</td>
+        <td>YAGEO</td>
+        <td>100</td>
+        <td>0.0009</td>
+        <td>0.09</td>
+        <td>C105872</td>
+        <td>0402</td>
+        <td>100</td>
+        <td>100</td>
+        <td>10000</td>
+        <td>1024700</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>5.1kΩ 62.5mW 50V Thick Film Resistor ±100ppm/℃ ±1% 0402 Chip Resistor - Surface Mount RoHS</td>
+        <td>Pull-down resistors for CC1/2 on usb interface</td>
+        <td>https://www.lcsc.com/product-detail/C105872.html</td>
+    </tr>
+    <tr>
+        <td>FRC0402F27R0TS</td>
+        <td>FOJAN</td>
+        <td>100</td>
+        <td>0.0006</td>
+        <td>0.06</td>
+        <td>C2909343</td>
+        <td>0402</td>
+        <td>100</td>
+        <td>100</td>
+        <td>10000</td>
+        <td>443300</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>27Ω ±1% 62.5mW 0402 Thick Film Resistor</td>
+        <td>Resistors for the differential pair to usb interface</td>
+        <td>https://www.lcsc.com/product-detail/C2909343.html</td>
+    </tr>
+    <tr>
+        <td>RC0402FR-071KL</td>
+        <td>YAGEO</td>
+        <td>100</td>
+        <td>0.0008</td>
+        <td>0.08</td>
+        <td>C106235</td>
+        <td>0402</td>
+        <td>100</td>
+        <td>100</td>
+        <td>10000</td>
+        <td>5051800</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>1kΩ 62.5mW 50V Thick Film Resistor ±100ppm/℃ ±1% 0402 Chip Resistor - Surface Mount RoHS</td>
+        <td>One for the crystal and one for flash mem</td>
+        <td>https://www.lcsc.com/product-detail/C106235.html</td>
+    </tr>
+    <tr>
+        <td>RC0402FR-0710KL</td>
+        <td>YAGEO</td>
+        <td>100</td>
+        <td>0.0008</td>
+        <td>0.08</td>
+        <td>C60490</td>
+        <td>0402</td>
+        <td>100</td>
+        <td>100</td>
+        <td>10000</td>
+        <td>1433400</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>62.5mW 10kΩ 50V Thick Film Resistor ±100ppm/℃ ±1% 0402 Chip Resistor - Surface Mount RoHS</td>
+        <td>Flash mem to power resistor</td>
+        <td>https://www.lcsc.com/product-detail/C60490.html</td>
+    </tr>
+    <tr>
+        <td>FRC0402F50R0TS</td>
+        <td>FOJAN</td>
+        <td>100</td>
+        <td>0.0006</td>
+        <td>0.06</td>
+        <td>C51048227</td>
+        <td>0402</td>
+        <td>100</td>
+        <td>100</td>
+        <td>10000</td>
+        <td>495800</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>62.5mW 50Ω 50V Thick Film Resistor ±100ppm/℃ ±1% 0402 Chip Resistor - Surface Mount RoHS</td>
+        <td>50R resistor for Red LED</td>
+        <td>https://www.lcsc.com/product-detail/C51048227.html</td>
+    </tr>
+    <tr>
+        <td>0603WAF100JT5E</td>
+        <td>UNI-ROYAL</td>
+        <td>20</td>
+        <td>0.0017</td>
+        <td>0.03</td>
+        <td>C22859</td>
+        <td>0603</td>
+        <td>20</td>
+        <td>20</td>
+        <td>5000</td>
+        <td>158680</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>10Ω ±1% 100mW 0603 Thick Film Resistor</td>
+        <td>10R resistor for Blue LED</td>
+        <td>https://www.lcsc.com/product-detail/C22859.html</td>
+    </tr>
+    <tr>
+        <td>TS-1088-AR02016</td>
+        <td>XUNPU</td>
+        <td>10</td>
+        <td>0.0545</td>
+        <td>0.55</td>
+        <td>C720477</td>
+        <td>SMD,4x3mm</td>
+        <td>10</td>
+        <td>10</td>
+        <td>4000</td>
+        <td>376970</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>Tactile Switch SPST 160gf 2mm SMD (SMT) Tab 4mm x 3mm Surface Mount</td>
+        <td>One switch for flash write mode, and one programmable.</td>
+        <td>https://www.lcsc.com/product-detail/C720477.html</td>
+    </tr>
+    <tr>
+        <td>RP2040</td>
+        <td>Raspberry Pi</td>
+        <td>5</td>
+        <td>0.9482</td>
+        <td>4.74</td>
+        <td>C2040</td>
+        <td>LQFN-56(7x7)</td>
+        <td>1</td>
+        <td>1</td>
+        <td>3400</td>
+        <td>101373</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>133MHz 30 LQFN-56(7x7) Microcontrollers RoHS</td>
+        <td>The MCU on this board</td>
+        <td>https://www.lcsc.com/product-detail/C2040.html</td>
+    </tr>
+    <tr>
+        <td>MCP1700T-3302E/TT</td>
+        <td>MICROCHIP</td>
+        <td>5</td>
+        <td>0.3762</td>
+        <td>1.88</td>
+        <td>C39051</td>
+        <td>SOT-23</td>
+        <td>5</td>
+        <td>5</td>
+        <td>3000</td>
+        <td>9370</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>3.3V Positive Fixed SOT-23 Voltage Regulators - Linear, Low Drop Out (LDO) Regulators RoHS</td>
+        <td>The stepdown converter from 5v to 3v3</td>
+        <td>https://www.lcsc.com/product-detail/C39051.html</td>
+    </tr>
+    <tr>
+        <td>W25Q16JVUXIQ</td>
+        <td>Winbond</td>
+        <td>10</td>
+        <td>1.0529</td>
+        <td>10.53</td>
+        <td>C2843335</td>
+        <td>USON-8-EP(2x3)</td>
+        <td>10</td>
+        <td>10</td>
+        <td>4000</td>
+        <td>34380</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>2.7V~3.6V 16Mbit 133MHz SPI USON-8-EP(2x3) Memory (ICs) RoHS</td>
+        <td>The flash memory module</td>
+        <td>https://www.lcsc.com/product-detail/C2843335.html</td>
+    </tr>
+    <tr>
+        <td>X322512MSB4SI</td>
+        <td>YXC Crystal Oscillators</td>
+        <td>10</td>
+        <td>0.0734</td>
+        <td>0.73</td>
+        <td>C9002</td>
+        <td>SMD3225-4P</td>
+        <td>10</td>
+        <td>10</td>
+        <td>3000</td>
+        <td>436800</td>
+        <td>In Stock</td>
+        <td></td>
+        <td>Crystal 12MHz ±10ppm 20pF SMD3225-4P</td>
+        <td>the Crystal oscilator</td>
+        <td>https://www.lcsc.com/product-detail/C9002.html</td>
+    </tr>
+</table>
